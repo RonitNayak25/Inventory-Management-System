@@ -1,0 +1,16 @@
+{% extends 'MyApp/main.html' %} {% load static %} {% block content %}
+<br>
+<h3>Order Summary</h3>
+  {% for order in orders %}
+  {% if order.transaction_id %}
+  <div class="card" style="width: 80%;">
+    <h5>Items: {{order.get_cart_items}}</h5>
+    <h5>Total: &#8377;{{order.get_cart_total|floatformat:2}}</h5>
+    <span>
+        <a href="{% url 'order_details' order.id %}"><button class="btn btn-sm btn-success" style="width: 100px; ">View Details</button></a>
+        <a href="#"><button class="btn btn-sm btn-primary" style="width: 100px; ">Update</button></a>
+    </span>
+  </div>
+  {% endif %}
+  {% endfor %}
+{% endblock content %}

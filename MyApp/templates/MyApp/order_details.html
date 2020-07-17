@@ -1,0 +1,12 @@
+{% extends 'MyApp/main.html' %} {% load static %} {% block content %}
+<br>
+<h3>Order Details</h3>
+{% for item in items %}
+<div class="card" style="width: 80%;">
+  <h5>Items: {{item.product.name}}</h5>
+  <h5>Price: &#8377;{{item.product.price}}</h5>
+  <h5>Quantity: {{item.quantity}}</h5>
+  <h5>Total: &#8377;{{item.get_total}}</h5>
+</div>
+{% endfor %}
+{% endblock content %}

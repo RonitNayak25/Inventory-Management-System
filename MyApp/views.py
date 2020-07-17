@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.http import JsonResponse
 import json
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import UserRegisterForm
 import datetime
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import UpdateView, DetailView
 
 
 def register(request):
@@ -94,3 +96,19 @@ def processOrder(request):
         order.complete = True
         order.save()
     return JsonResponse("Payment Complete", safe=False)
+
+
+@login_required
+def viewOrders(request):
+    if request.user.is_authenticated:
+        orders = request.user.customer.order_set.all()
+    context = {"orders": orders}
+    return render(request, "MyApp/orders.html", context=context)
+
+
+@login_required
+def orderDetails(request, pk):
+    order = Order.objects.get(id=pk)
+    items = order.orderitem_set.all()
+    context = {"items": items}
+    return render(request, "MyApp/order_details.html", context=context)
