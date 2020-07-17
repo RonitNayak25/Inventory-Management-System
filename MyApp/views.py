@@ -1,9 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.http import JsonResponse
 import json
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterForm
 
 
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserRegisterForm()
+    context = {"form": form}
+    return render(request, "MyApp/register.html", context)
+
+
+@login_required
 def store(request):
     items = []
     if request.user.is_authenticated:
@@ -19,6 +34,7 @@ def store(request):
     return render(request, "MyApp/store.html", context)
 
 
+@login_required
 def cart(request):
     items = []
     if request.user.is_authenticated:
@@ -33,6 +49,7 @@ def cart(request):
     return render(request, "MyApp/cart.html", context)
 
 
+@login_required
 def checkout(request):
     items = []
     if request.user.is_authenticated:
@@ -45,16 +62,6 @@ def checkout(request):
         cartItems = order["get_cart_items"]
     context = {"items": items, "order": order, "cartItems": cartItems}
     return render(request, "MyApp/checkout.html", context)
-
-
-def login(request):
-    context = {}
-    return render(request, "MyApp/login.html", context)
-
-
-def register(request):
-    context = {}
-    return render(request, "MyApp/register.html", context)
 
 
 def updateItem(request):
