@@ -5,8 +5,7 @@ import json
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import UserRegisterForm
 import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import UpdateView, DetailView
+from django.core.exceptions import PermissionDenied
 
 
 def register(request):
@@ -111,4 +110,8 @@ def orderDetails(request, pk):
     order = Order.objects.get(id=pk)
     items = order.orderitem_set.all()
     context = {"items": items}
-    return render(request, "MyApp/order_details.html", context=context)
+    if str(request.user) == str(order.customer):
+        return render(request, "MyApp/order_details.html", context=context)
+    else:
+        raise PermissionDenied
+    
