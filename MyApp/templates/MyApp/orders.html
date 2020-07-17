@@ -8,9 +8,15 @@
     <h5>Total: &#8377;{{order.get_cart_total|floatformat:2}}</h5>
     <span>
         <a href="{% url 'order_details' order.id %}"><button class="btn btn-sm btn-success" style="width: 100px; ">View Details</button></a>
-        <a href="#"><button class="btn btn-sm btn-primary" style="width: 100px; ">Update</button></a>
+        <a id="update_button" href="#"><button class="btn btn-sm btn-primary" style="width: 100px; ">Update</button></a>
     </span>
   </div>
   {% endif %}
   {% endfor %}
+  <script type="text/javascript"> 
+    var btn = document.getElementById("update_button");
+    btn.addEventListener('click', function(){
+      console.log("button Clicked");
+    })
+  </script>
 {% endblock content %}
