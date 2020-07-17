@@ -12,4 +12,5 @@ urlpatterns = [
     path(
         "logout/", LogoutView.as_view(template_name="MyApp/logout.html"), name="logout"
     ),
+    path("process_order/", processOrder, name="process_order"),
 ]

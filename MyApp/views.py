@@ -4,6 +4,7 @@ from django.http import JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
+import datetime
 
 
 def register(request):
@@ -82,3 +83,14 @@ def updateItem(request):
     if orderItem.quantity <= 0:
         orderItem.delete()
     return JsonResponse("item was added", safe=False)
+
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order.transaction_id = transaction_id
+        order.complete = True
+        order.save()
+    return JsonResponse("Payment Complete", safe=False)
