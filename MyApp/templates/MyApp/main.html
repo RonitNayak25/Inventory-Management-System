@@ -71,6 +71,7 @@
           </a>
           <p id="cart-total">{{cartItems}}</p>
           {% else %}
+          <a href="http://127.0.0.1:8000/admin/" class="btn btn-primary">Admin</a>
           <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
           <a href="{% url 'register' %}" class="btn btn-danger">Register</a>
           {% endif %}

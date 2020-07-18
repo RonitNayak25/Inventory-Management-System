@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import UserRegisterForm
@@ -13,7 +13,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")
+            return redirect("wait")
     else:
         form = UserRegisterForm()
     context = {"form": form}
@@ -114,4 +114,8 @@ def orderDetails(request, pk):
         return render(request, "MyApp/order_details.html", context=context)
     else:
         raise PermissionDenied
+
+
+def wait(request):
+    return render(request, "MyApp/wait.html")
     
