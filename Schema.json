@@ -1,0 +1,71 @@
+User Collection
+{
+    "_id": {
+        "$oid": "5f116232845af98dcd3b8aeb"
+    },
+    "id": 1,
+    "password": "pbkdf2_sha256$180000$WLFax1XZA3PY$L6dvqzF5OoLPdntqwTodMPK4u7QQNHbk0IXQIgKZ0qw=",
+    "last_login": {
+        "$date": "2020-07-18T01:27:23.261Z"
+    },
+    "is_superuser": true,
+    "username": "ronit",
+    "first_name": "",
+    "last_name": "",
+    "email": "ronitnayak25@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": {
+        "$date": "2020-07-17T08:32:50.573Z"
+    }
+}
+
+Customer Collection
+{
+    "_id": {
+        "$oid": "5f116256204d1bc0caaf03d0"
+    },
+    "id": 1,
+    "user_id": 1,
+    "name": "Ronit",
+    "email": "ronitnayak25@gmail.com"
+}
+
+Product Collection
+{
+    "_id": {
+        "$oid": "5f11627f204d1bc0caaf03d2"
+    },
+    "id": 1,
+    "name": "sneh pranav",
+    "price": "600.00",
+    "image": "Screenshot_110_O3ECk2L.png"
+}
+
+Order Collection
+{
+    "_id": {
+        "$oid": "5f124faf9f486a3d05374783"
+    },
+    "id": 8,
+    "customer_id": 1,
+    "date_ordered": {
+        "$date": "2020-07-18T01:26:07.518Z"
+    },
+    "complete": true,
+    "transaction_id": "1595035576.114334"
+}
+
+OrderItem Collection
+{
+    "_id": {
+        "$oid": "5f124fb19f486a3d05374784"
+    },
+    "id": 9,
+    "product_id": 1,
+    "order_id": 8,
+    "quantity": 1,
+    "date_added": {
+        "$date": "2020-07-18T01:26:09.103Z"
+    }
+}
